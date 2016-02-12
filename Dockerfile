@@ -20,9 +20,7 @@ RUN chown www-data:www-data -R /var/www/html/
 
 # PHP configuration
 COPY config_files/php.ini /usr/local/etc/php/
-RUN mv /usr/local/etc/php/conf.d/docker-php-ext-pdo.ini /usr/local/etc/php/conf.d/docker-php-ext-pdo.ini.nope
-RUN mv /usr/local/etc/php/conf.d/docker-php-ext-iconv.ini /usr/local/etc/php/conf.d/docker-php-ext-iconv.ini.nope
 
 VOLUME /var/www/html
 
-ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+ENTRYPOINT ["apache2", "-DFOREGROUND"]

@@ -11,7 +11,7 @@ RUN apt-get update \
 		wget \
 		unzip \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install iconv mcrypt pdo pdo_mysql mbstring soap gd
+    && docker-php-ext-install iconv mcrypt pdo pdo_mysql mbstring soap gd zip
 
 # Apache configuration
 RUN a2enmod rewrite
@@ -20,7 +20,7 @@ RUN chown www-data:www-data -R /var/www/html/
 
 # PHP configuration
 COPY config_files/php.ini /usr/local/etc/php/
+COPY apache-start.sh /usr/local/bin/
 
-VOLUME /var/www/html
+CMD ["apache-start.sh"]
 
-ENTRYPOINT ["apache2", "-DFOREGROUND"]
